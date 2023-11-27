@@ -23,7 +23,13 @@ dag = DAG(
 
 def years_today():
     """Returns how old you are at this moment"""
-    return 0  # TODO: create a working implementation
+    ## note: both arguments to relativedelta are timezone aware, compare apples to apples!
+    return (
+        "{{ macros.dateutil.relativedelta.relativedelta("
+            "data_interval_end, "
+            "dag.start_date"
+        ).years }}"
+    )  
 
 
 birthday_greeting = BashOperator(
